@@ -2,14 +2,35 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Settings</title>
-        <link rel="stylesheet" type="text/css" href="style/main.css">
+        <title>settings</title>
         <link rel="icon" href="favicon.png">
-        <script src="scripts/lib/localforage.min.js"></script>
+        <link rel="stylesheet" href="style/picnic.min.css">
+        <link rel="stylesheet" type="text/css" href="style/main.css">
+        <link rel="stylesheet" type="text/css" href="style/font.css">
         <script src="scripts/settings.js"></script>
     </head>
 
     <body>
+        <nav id="main-nav">
+            <div class="nav-link">
+                <a href="index.html" class="brand">osu.groenedino</a>
+                <a href="new.html" class="pseudo button">New maps</a>
+                <a href="hot.html" class="pseudo button">Popular</a>
+                <a href="genre.html" class="pseudo button">Genre</a>
+            </div>
+            <div class="nav-search">
+                <form action="search.html">
+                    <input type="text" name="q" placeholder="beatmap keyword or ssid"/>
+                    <input type="image" class="search-button" src="research.svg">
+                </form>
+            </div>
+            <div class="nav-tool">
+                <a href="local.html" class="pseudo button">Favorite songs</a>
+                <a href="faq.html" class="pseudo button">Faq</a>
+                <a href="settings.html" class="pseudo button active">Settings</a>
+                <a onclick="document.documentElement.requestFullscreen();" class="pseudo button">Fulscreen</a>
+            </div>
+        </nav>
         <div class="main-page" id="main-page">
             <div class="panel">
                 <!-- <h1>Settings</h1> -->
@@ -55,8 +76,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <div class="option-name" title="less latency, but on some browsers donesn't display correctly">
+                        <td title="减少光标延迟，但兼容性差，可能闪烁或无法显示">
+                            <div class="option-name">
                                 Show hardware cursor
                             </div>
                             <div class="option-control">
@@ -84,6 +105,37 @@
                             </div>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <div class="option-name">
+                                Enter the map in full screen
+                            </div>
+                            <div class="option-control">
+                                <input id="autofullscreen-check" type="checkbox" /><span></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="option-name">
+                                Use system resolution
+                            </div>
+                            <div class="option-control">
+                                <input id="sysdpi-check" type="checkbox" /><span></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="option-name">
+                                Resolution
+                            </div>
+                            <div class="option-control">
+                                <input id="dpi-range" class="slider" type="range" min="0.5" max="2.0" value="1.0" step="0.05">
+                                <div class="range-indicator" id="dpi-range-indicator" hidden></div>
+                            </div>
+                        </td>
+                    </tr>
 
                     <tr>
                         <td>
@@ -93,8 +145,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <div class="option-name" title="So that you don't change volume accidentally">
+                        <td title="So that you don't change volume accidentally">
+                            <div class="option-name">
                                 Disable mouse wheel in gameplay
                             </div>
                             <div class="option-control">
@@ -103,8 +155,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <div class="option-name" title="So that you don't hit things accidentally">
+                        <td title="So that you don't hit things accidentally">
+                            <div class="option-name">
                                 Disable mouse buttons in gameplay
                             </div>
                             <div class="option-control">
@@ -131,6 +183,27 @@
                             <div class="option-control">
                                 <input id="rbutton1select" type="button" value="oops"/>
                                 <input type="button" value="M2"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="option-name">
+                                Pause button
+                            </div>
+                            <div class="option-control">
+                                <input id="pausebuttonselect" type="button" value="oops"/>
+                                <input id="pausebutton2select" type="button" value="oops"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="option-name">
+                                Skip intro
+                            </div>
+                            <div class="option-control">
+                                <input id="skipbuttonselect" type="button" value="oops"/>
                             </div>
                         </td>
                     </tr>
@@ -175,18 +248,19 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <tr title="Not recommended for use! Do not use if you are not sure there is a large delay!">
                         <td>
-                            <div class="option-name disabled">
+                            <div class="option-name">
                                 Audio offset
                             </div>
                             <div class="option-control">
-                                <input id="audiooffset-range" class="slider" type="range" min="-80" max="80" value="-80">
+                                <input id="audiooffset-range" class="slider" type="range" min="-50" max="50" value="-50">
                                 <div class="range-indicator" id="audiooffset-range-indicator" hidden></div>
                             </div>
+                            <div style="font-size: 0.8em; color: #999; margin-top: 2.2em;">Not recommended for use! If used, turn off the percussion sound, and set it to a positive value to delay the decision point relative to the music. go to <a style="color: #8bc" href="https://bemuse.ninja/?mode=sync">bemuse sync</a> to determine the keyboard delay.</div>
                         </td>
                     </tr>
-                    <tr>
+                    <tr hidden>
                         <td>
                             <div class="option-name disabled">
                                 Enable beatmap hitsounds
@@ -205,8 +279,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <div class="option-name" title="This doesn't make things easier!">
+                        <td title="This doesn't make things easier!">
+                            <div class="option-name">
                                 Easy
                             </div>
                             <div class="option-control">
@@ -215,8 +289,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <div class="option-name" title="Everything gets slower...">
+                        <td title="Everything gets slower...">
+                            <div class="option-name">
                                 Daycore
                             </div>
                             <div class="option-control">
@@ -225,8 +299,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <div class="option-name" title="Everything gets a bit harder...">
+                        <td title="Everything gets a bit harder...">
+                            <div class="option-name">
                                 Hard Rock
                             </div>
                             <div class="option-control">
@@ -235,8 +309,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <div class="option-name" title="Play with no approach circles and fading circles/sliders">
+                        <td title="Play with no approach circles and fading circles/sliders">
+                            <div class="option-name">
                                 Hidden
                             </div>
                             <div class="option-control">
@@ -245,8 +319,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <div class="option-name" title="Everything gets faster...">
+                        <td title="Everything gets faster...">
+                            <div class="option-name">
                                 Nightcore
                             </div>
                             <div class="option-control">
@@ -255,8 +329,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <div class="option-name" title="Watch a perfect automated play">
+                        <td title="Watch a (probably) perfect automated play">
+                            <div class="option-name">
                                 Autoplay
                             </div>
                             <div class="option-control">
@@ -305,11 +379,20 @@
                     <tr>
                         <td>
                             <br/>
-                            <input id="restoredefault-btn" type="button" class="warnbtn" value="Restore all settings to default"/>
+                            <input id="restoredefault-btn" type="button" class="warnbtn" value="Restore all to default settings"/>
                         </td>
                     </tr>
                 </table>
             </div>
         </div>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-169262247-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-169262247-1');
+</script>
     </body>
 </html>
